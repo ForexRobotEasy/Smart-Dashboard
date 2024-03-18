@@ -1,0 +1,197 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                                     Smart Dashboard|
+//|                                        https://forexroboteasy.com|
+//|                                            Developed by Forex Robot Easy Team|
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//|                                                         Constants |
+//+------------------------------------------------------------------+
+#define MAGIC_NUMBER 123456
+#define SLIPPAGE 5
+
+//+------------------------------------------------------------------+
+//|                                                      Declarations |
+//+------------------------------------------------------------------+
+string symbol;
+double lotSize;
+
+//+------------------------------------------------------------------+
+//|                                                     Initialization |
+//+------------------------------------------------------------------+
+void OnInit()
+{
+   // Set default lot size
+   lotSize = 0.01;
+   
+   // Get current symbol
+   symbol = Symbol();
+}
+
+//+------------------------------------------------------------------+
+//|                                                User-friendly Interface |
+//+------------------------------------------------------------------+
+void UserInterface()
+{
+   // Display Smart Dashboard with buttons for manual trade review
+   Print('Welcome to Smart Dashboard Forex Software');
+   Print('-----------------------------------------');
+   Print('1. Close All Orders');
+   Print('2. Close All Sell Orders');
+   Print('3. Close All Buy Orders');
+   Print('-----------------------------------------');
+}
+
+//+------------------------------------------------------------------+
+//|                                                      Close Orders |
+//+------------------------------------------------------------------+
+void CloseAllOrders()
+{
+   // Get total number of orders
+   int totalOrders = OrdersTotal();
+   
+   // Loop through all orders and close them
+   for(int i = totalOrders - 1; i >= 0; i--)
+   {
+      // Select order
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+      {
+         // Close order
+         OrderClose(OrderTicket(), OrderLots(), Bid, SLIPPAGE);
+      }
+   }
+   
+   // Inform user
+   Print('All orders closed successfully');
+}
+
+//+------------------------------------------------------------------+
+//|                                                   Close Sell Orders |
+//+------------------------------------------------------------------+
+void CloseSellOrders()
+{
+   // Get total number of orders
+   int totalOrders = OrdersTotal();
+   
+   // Loop through all orders and close sell orders
+   for(int i = totalOrders - 1; i >= 0; i--)
+   {
+      // Select order
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+      {
+         // Check if sell order
+         if(OrderType() == OP_SELL)
+         {
+            // Close order
+            OrderClose(OrderTicket(), OrderLots(), Bid, SLIPPAGE);
+         }
+      }
+   }
+   
+   // Inform user
+   Print('All sell orders closed successfully');
+}
+
+//+------------------------------------------------------------------+
+//|                                                    Close Buy Orders |
+//+------------------------------------------------------------------+
+void CloseBuyOrders()
+{
+   // Get total number of orders
+   int totalOrders = OrdersTotal();
+   
+   // Loop through all orders and close buy orders
+   for(int i = totalOrders - 1; i >= 0; i--)
+   {
+      // Select order
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+      {
+         // Check if buy order
+         if(OrderType() == OP_BUY)
+         {
+            // Close order
+            OrderClose(OrderTicket(), OrderLots(), Bid, SLIPPAGE);
+         }
+      }
+   }
+   
+   // Inform user
+   Print('All buy orders closed successfully');
+}
+
+//+------------------------------------------------------------------+
+//|                                                Forex Analysis |
+//+------------------------------------------------------------------+
+void ForexAnalysis()
+{
+   // Perform fast and accurate Forex analysis here
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//|                                                    Main Program |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Perform Forex analysis
+   ForexAnalysis();
+   
+   // User interface for manual trade review
+   UserInterface();
+   
+   // Wait for user input
+   int choice = InputInteger('Enter your choice: ');
+   
+   // Execute user's choice
+   switch(choice)
+   {
+      case 1:
+         CloseAllOrders();
+         break;
+      case 2:
+         CloseSellOrders();
+         break;
+      case 3:
+         CloseBuyOrders();
+         break;
+      default:
+         Print('Invalid choice');
+   }
+}
+
+//+------------------------------------------------------------------+
+//|                                              Code Optimization |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Clean up before program termination
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//|                                              Bug Testing and Fixing |
+//+------------------------------------------------------------------+
+void OnTester()
+{
+   // Perform thorough testing and fix any bugs or issues
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//|                                                  Code Deployment |
+//+------------------------------------------------------------------+
+void OnTimer()
+{
+   // Deploy the code within the specified timeframe
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//|                                                Troubleshooting and Maintenance |
+//+------------------------------------------------------------------+
+void OnShutdown()
+{
+   // Provide necessary support for troubleshooting and maintenance
+   // ...
+}
